@@ -1,3 +1,4 @@
+import imageClassifier from "./ImageClassifier/";
 import neuralNetwork from "./NeuralNetwork";
 import handpose from "./Handpose";
 import poseDetection from "./PoseDetection";
@@ -8,6 +9,7 @@ import setBackend from "./utils/setBackend";
 import preloadRegister from "./utils/p5PreloadHelper";
 
 const withPreload = {
+  imageClassifier,
 };
 
 export default Object.assign(
