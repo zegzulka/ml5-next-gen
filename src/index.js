@@ -9,6 +9,7 @@ import p5Utils from "./utils/p5Utils";
 import setBackend from "./utils/setBackend";
 import bodyPix from "./BodySegmentation";
 import communityStatement from "./utils/communityStatement";
+import mirror from "./utils/mirror";
 
 export default Object.assign(
   { p5Utils },
@@ -22,6 +23,7 @@ export default Object.assign(
     bodypose,
     setBackend,
     bodyPix,
+    mirror,
   }
 );
 
