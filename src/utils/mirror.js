@@ -27,6 +27,34 @@ function mirrorVideo(video) {
 }
 
 /**
+ * Takes in a HTML video and return a new p5 video that is mirrored horizontally.
+ */
+function htmlVideoToP5Video(video) {
+  const p5Video = addElement(video, p5.instance, true);
+  p5Video.loadedmetadata = false;
+  // set width and height onload metadata
+  video.addEventListener("loadedmetadata", function () {
+    video.play();
+    p5Video.width = video.width;
+    p5Video.height = video.height;
+    p5Video.loadedmetadata = true;
+  });
+  return p5Video;
+}
+/**
+ * Helper function to create a p5 element
+ */
+function addElement(elt, pInst, media) {
+  const node = pInst._userNode ? pInst._userNode : document.body;
+  node.appendChild(elt);
+  const c = media
+    ? new p5.MediaElement(elt, pInst)
+    : new p5.Element(elt, pInst);
+  pInst._elements.push(c);
+  return c;
+}
+
+/**
  * Takes in a HTML or p5 video and flip it horizontally.
  * The function return new instance of media and leaves the original media unmodified.
  * @param video - a HTML or p5 video to do the mirroring on.
@@ -34,15 +62,17 @@ function mirrorVideo(video) {
  */
 export default function mirror(video) {
   let isP5Element = video.elt !== undefined;
-  let mirroredVideo;
 
-  if (rawMedia instanceof HTMLVideoElement) {
-    mirroredMedia = mirrorVideo(rawMedia);
-  } else if (isP5Element && rawMedia.elt instanceof HTMLVideoElement) {
+  if (video instanceof HTMLVideoElement) {
+    let mirroredVideo = mirrorVideo(rawMedia);
+    return mirroredVideo;
+  } else if (isP5Element && video.elt instanceof HTMLVideoElement) {
+    let rawMirroredVideo = mirrorVideo(video.elt);
+    let mirroredVideo = htmlVideoToP5Video(rawMirroredVideo);
+    return mirroredVideo;
   } else {
     throw new Error(
       "The media parameter passed into the mirror() function is not a valid HTML or p5 video."
     );
   }
-  return mirroredVideo;
 }
