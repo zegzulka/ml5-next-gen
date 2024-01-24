@@ -58,8 +58,8 @@ function createGIFfromFrames(frames) {
   var gif = new GIF({
     workers: 2,
     quality: 10,
-    width: 640, // Set width based on the frame dimensions
-    height: 480, // Set height based on the frame dimensions
+    width: 1280, // Set width based on the frame dimensions
+    height: 960, // Set height based on the frame dimensions
     transparent: [0, 0, 0, 0], // Set transparent color to rgba(0, 0, 0, 0) for full transparency
   });
 
@@ -80,13 +80,30 @@ function createGIFfromFrames(frames) {
   var loadedFrames = 0; // Track the number of loaded frames
 
   frames.forEach(function (frameDataURL, index) {
+    // Create a canvas with the correct dimensions
+    var canvas = document.createElement("canvas");
+    canvas.width = 1280; // Set width based on the frame dimensions
+    canvas.height = 960; // Set height based on the frame dimensions
+    var context = canvas.getContext("2d");
+
     var img = new Image();
     img.src = frameDataURL;
 
     img.onload = function () {
       console.log("Loaded frame " + (index + 1) + "/" + frames.length); // Log frame loading progress
-      // Add each frame to the gif
-      gif.addFrame(img, { delay: 200 });
+
+      // Clear the canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Calculate positioning to center the frame
+      var x = (canvas.width - img.width) / 2;
+      var y = (canvas.height - img.height) / 2;
+
+      // Draw the frame on the canvas
+      context.drawImage(img, x, y);
+
+      // Add the canvas as a frame to the gif
+      gif.addFrame(canvas, { delay: 200 });
 
       loadedFrames++;
 
@@ -98,3 +115,4 @@ function createGIFfromFrames(frames) {
     };
   });
 }
+
