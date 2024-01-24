@@ -1,8 +1,10 @@
 let bodyPix;
 let video;
 let segmentation;
-let frameRate = 1; // Frames per second
-let captureDuration = 2; // Duration in seconds
+let frameRate = 10; // Default frames per second
+let captureDuration = 2; // Default duration in seconds
+let quality = 1; // Default quality
+let frameDelay = 500; // Default frame delay
 
 function preload() {
   bodyPix = ml5.bodySegmentation("SelfieSegmentation", {
@@ -36,6 +38,16 @@ function gotResults(result) {
 
 function startGIFCapture() {
   console.log("Button clicked"); // Add this line for debugging
+
+  // Get the latest values from input fields
+  frameRate = parseFloat(document.getElementById("frameRate").value);
+  // quality = parseInt(document.getElementById("quality").value);
+  captureDuration = parseFloat(document.getElementById("duration").value);
+  frameDelay = parseInt(document.getElementById("frameDelay").value);
+
+  // Update the status indicator with the initial duration
+  updateStatusIndicator(captureDuration);
+
   let frames = [];
   let captureFrameCount = captureDuration * frameRate;
   let interval = 1000 / frameRate;
@@ -54,13 +66,31 @@ function startGIFCapture() {
   captureFrame();
 }
 
+function updateStatusIndicator(duration) {
+  // Update the status indicator element
+  const statusElement = document.getElementById("status");
+  statusElement.innerText = duration;
+
+  // Calculate the remaining duration
+  let remainingDuration = duration;
+  const statusInterval = setInterval(() => {
+    remainingDuration--;
+    if (remainingDuration >= 0) {
+      statusElement.innerText = remainingDuration;
+    } else {
+      clearInterval(statusInterval);
+    }
+  }, 1000); // Update status every second
+}
+
 function createGIFfromFrames(frames) {
   var gif = new GIF({
     workers: 2,
-    quality: 10,
+    quality: 1,
     width: 1280, // Set width based on the frame dimensions
     height: 960, // Set height based on the frame dimensions
     transparent: [0, 0, 0, 0], // Set transparent color to rgba(0, 0, 0, 0) for full transparency
+    repeat: 0, // Set repeat count
   });
 
   gif.on("finished", function (blob) {
@@ -103,7 +133,7 @@ function createGIFfromFrames(frames) {
       context.drawImage(img, x, y);
 
       // Add the canvas as a frame to the gif
-      gif.addFrame(canvas, { delay: 200 });
+      gif.addFrame(canvas, { delay: frameDelay });
 
       loadedFrames++;
 
@@ -115,4 +145,3 @@ function createGIFfromFrames(frames) {
     };
   });
 }
-

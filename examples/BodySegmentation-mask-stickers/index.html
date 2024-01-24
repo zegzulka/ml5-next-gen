@@ -13,14 +13,14 @@
 
 </head>
 <body>
-    <h1>Body Segmentation GIF Creator</h1>
+    <h1>GIF Creator</h1>
 
     <label for="frameRate">Frame Rate: <input type="number" id="frameRate" value="1"></label><br>
-    <label for="quality">Quality: <input type="number" id="quality" value="10"></label><br>
+    <!-- <label for="quality">Quality: <input type="number" id="quality" value="10"></label><br> -->
     <label for="duration">Duration (seconds): <input type="number" id="duration" value="2"></label><br>
-    <label for="loopCount">Loop Count: <input type="number" id="loopCount" value="0"></label><br>
     <label for="frameDelay">Delay Between Frames (ms): <input type="number" id="frameDelay" value="500"></label><br>
     <button id="captureButton">Capture for GIF</button>
+    <p id="status">0</p>
 
     <script src="sketch.js"></script>
 </body>
