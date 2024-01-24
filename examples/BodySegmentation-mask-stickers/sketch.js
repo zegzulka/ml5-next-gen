@@ -55,53 +55,46 @@ function startGIFCapture() {
 }
 
 function createGIFfromFrames(frames) {
-  let encoder = new GIFEncoder();
-  encoder.setRepeat(0);
-  encoder.setDelay(200);
+  var gif = new GIF({
+    workers: 2,
+    quality: 10,
+    width: 640, // Set width based on the frame dimensions
+    height: 480, // Set height based on the frame dimensions
+    transparent: [0, 0, 0, 0], // Set transparent color to rgba(0, 0, 0, 0) for full transparency
+  });
 
-  // Set the transparent color to rgba(0, 0, 0, 0) for full transparency
-  encoder.setTransparent([0, 0, 0, 0]);
+  gif.on("finished", function (blob) {
+    var data_url = URL.createObjectURL(blob);
+    console.log("Data URL:", data_url); // Log the data URL
 
-  encoder.start();
+    // Create a download link and trigger the download
+    var a = document.createElement("a");
+    a.href = data_url;
+    a.download = "animated.gif";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
 
-  let processedFrames = 0;
+  var loadedFrames = 0; // Track the number of loaded frames
 
-  frames.forEach(function (frameDataURL) {
-    let img = new Image();
+  frames.forEach(function (frameDataURL, index) {
+    var img = new Image();
     img.src = frameDataURL;
 
     img.onload = function () {
-      let canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
+      console.log("Loaded frame " + (index + 1) + "/" + frames.length); // Log frame loading progress
+      // Add each frame to the gif
+      gif.addFrame(img, { delay: 200 });
 
-      // Ensure that the canvas has a transparent background
-      let context = canvas.getContext("2d", { alpha: true });
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      loadedFrames++;
 
-      // Draw the image onto the canvas with transparency
-      context.drawImage(img, 0, 0);
-
-      encoder.addFrame(context);
-
-      processedFrames++;
-
-      if (processedFrames === frames.length) {
-        encoder.finish();
-        var binary_gif = encoder.stream().getData();
-        var data_url = "data:image/gif;base64," + encode64(binary_gif);
-        console.log("Data URL:", data_url); // Log the data URL
-
-        // Create a download link and trigger the download
-        var a = document.createElement("a");
-        a.href = data_url;
-        a.download = "animated.gif";
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+      if (loadedFrames === frames.length) {
+        console.log("All frames loaded. Rendering the GIF..."); // Log when all frames are loaded
+        // Render the gif
+        gif.render();
       }
     };
   });
 }
-
