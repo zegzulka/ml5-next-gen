@@ -10,17 +10,25 @@
     <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
     <script src="gif.js"></script>
     <script src="gif.worker.js"></script>
-
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>GIF Creator</h1>
+    <div class="main">
+      <div class="video_side">
+        <div class="buttons_holder">
+          <div class="input_holder"><input class="input" type="number" id="frameRate" value="2"><p class="info">f</p></div>
+          <div class="input_holder"><input class="input" type="number" id="duration" value="3"><p class="info">s</p></div>
+          <div class="input_holder"><input class="input" type="number" id="frameDelay" value="250" input type="hidden" style="width: 70px;"><p class="info" style="left: 78px;">ms</p></div>
+          <button id="captureButton"><img src="record_icon.svg"></button>
+        </div>
+        <div id="player"></div>
+        <p id="status">0</p>
+      </div>
+      <div class="exported_videos">
+      </div>
+    </div>
 
-    <label for="frameRate">Frame Rate: <input type="number" id="frameRate" value="1"></label><br>
-    <!-- <label for="quality">Quality: <input type="number" id="quality" value="10"></label><br> -->
-    <label for="duration">Duration (seconds): <input type="number" id="duration" value="2"></label><br>
-    <label for="frameDelay">Delay Between Frames (ms): <input type="number" id="frameDelay" value="500"></label><br>
-    <button id="captureButton">Capture for GIF</button>
-    <p id="status">0</p>
+    <div class="new_video"></div>
 
     <script src="sketch.js"></script>
 </body>
