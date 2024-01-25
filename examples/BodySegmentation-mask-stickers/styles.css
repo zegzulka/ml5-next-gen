@@ -53,11 +53,13 @@ body{
 
 .exported_video {
     max-width: 100%;
+    max-height: 320px;
     height: auto;
     border-radius: 64px;
     border: 1px solid #202020;
     padding: 2px;
     box-sizing: border-box;
+    object-position: center bottom;
     object-fit: contain; /* Maintain aspect ratio and fit content within the container */
     aspect-ratio: attr(width) / attr(height); /* Set aspect ratio based on content width and height attributes */
 }
@@ -129,9 +131,8 @@ body{
     justify-content: center;
     align-items: center;
     border-radius: 32px;
-    border: 1px solid rgba(192, 223, 0, 0.20);
-    background: rgba(219, 255, 0, 0.40);
-    backdrop-filter: blur(10px);
+    border: 1px solid #9CB500;
+    background: #DBFF00;
 }
 
 #defaultCanvas0{
