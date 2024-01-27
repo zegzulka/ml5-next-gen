@@ -38,7 +38,7 @@ body{
 
 .video_side{
     border-radius: 64px;
-    border: 1px solid #202020;
+    border: 1px solid #383838;
     width: 100%;
     position: relative;
 }
@@ -47,22 +47,38 @@ body{
     width: 33%;
     overflow: scroll; /* Use overflow: hidden instead of scroll */
     display: flex; /* Add display: flex to align items horizontally */
-    flex-wrap: wrap; /* Wrap the items to the next row */
-    gap: 8px; /* Add some gap between items */
+    flex-direction: column; /* Stack videos vertically */
+    gap: 8px; /* Add some spacing between videos */
+}
+
+.exported_videos {
+    width: 33%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .exported_video {
     max-width: 100%;
     max-height: 320px;
-    height: auto;
     border-radius: 64px;
-    border: 1px solid #202020;
+    border: 1px solid #383838;
     padding: 2px;
     box-sizing: border-box;
-    object-position: center bottom;
-    object-fit: contain; /* Maintain aspect ratio and fit content within the container */
-    aspect-ratio: attr(width) / attr(height); /* Set aspect ratio based on content width and height attributes */
+    display: block; /* Make sure the anchor tag is a block element */
+    text-decoration: none; /* Remove the underline from links */
 }
+
+.exported_video img {
+    width: 100%;
+    height: auto;
+    border-radius: inherit; /* Inherit border-radius from parent */
+    object-position: center bottom;
+    object-fit: contain;
+    aspect-ratio: attr(width) / attr(height);
+}
+
 
 .input{
     display: flex;
@@ -147,4 +163,13 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
   margin: 0; /* Optional: Remove any default margin */
+}
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
