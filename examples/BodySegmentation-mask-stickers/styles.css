@@ -6,7 +6,7 @@ body{
     background-color: black;
     color: white;
     margin: 0;
-    height: 100%; /* Set body height to 100% */
+    height: 100%; 
     color: #FFF;
     font-family: "ABC Favorit Mono Trial";
     font-size: 24px;
@@ -30,7 +30,7 @@ body{
 .main {
     flex: 1;
     position: relative;
-    max-height: 98vh; /* Set main height to 100vh */
+    max-height: 98vh; 
     display: flex;
     width: 100%;
     gap: 8px;
@@ -45,10 +45,10 @@ body{
 
 .exported_videos {
     width: 33%;
-    overflow: scroll; /* Use overflow: hidden instead of scroll */
-    display: flex; /* Add display: flex to align items horizontally */
-    flex-direction: column; /* Stack videos vertically */
-    gap: 8px; /* Add some spacing between videos */
+    overflow: scroll; 
+    display: flex;
+    flex-direction: column; 
+    gap: 8px; 
 }
 
 .exported_videos {
@@ -66,14 +66,14 @@ body{
     border: 1px solid #383838;
     padding: 2px;
     box-sizing: border-box;
-    display: block; /* Make sure the anchor tag is a block element */
-    text-decoration: none; /* Remove the underline from links */
+    display: block; 
+    text-decoration: none; 
 }
 
 .exported_video img {
     width: 100%;
     height: auto;
-    border-radius: inherit; /* Inherit border-radius from parent */
+    border-radius: inherit; 
     object-position: center bottom;
     object-fit: contain;
     aspect-ratio: attr(width) / attr(height);
@@ -100,7 +100,7 @@ body{
     position: relative;
 }
 .input:focus{
-    outline: 2px solid rgb(255, 255, 255); /* You can change "red" to your desired color */
+    outline: 2px solid rgb(255, 255, 255); 
 }
 
 .input_holder{
@@ -121,7 +121,7 @@ body{
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 26px; /* 162.5% */
+    line-height: 26px; 
 }
 
 #player{
@@ -153,16 +153,16 @@ body{
 
 #defaultCanvas0{
     border-radius: 64px;
-    object-fit: none; /* Disable object-fit */
-    object-position: center bottom; /* Position content at the bottom */
+    object-fit: none; 
+    object-position: center bottom; 
 }
 
-/* Hide the spinners in WebKit-based browsers */
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
-  margin: 0; /* Optional: Remove any default margin */
+  margin: 0; 
 }
 
 html {
@@ -170,6 +170,6 @@ html {
     overflow-x: hidden;
 }
 ::-webkit-scrollbar {
-    width: 0;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
+    width: 0;  
+    background: transparent; 
 }
