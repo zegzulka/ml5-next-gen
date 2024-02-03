@@ -97,7 +97,6 @@ function createGIFfromFrames(frames) {
 
   gif.on("finished", function (blob) {
     var data_url = URL.createObjectURL(blob);
-    console.log("Data URL:", data_url); 
 
     // var a = document.createElement("a");
     // a.href = data_url;
@@ -122,7 +121,7 @@ function createGIFfromFrames(frames) {
     img.src = frameDataURL;
 
     img.onload = function () {
-      console.log("Loaded frame " + (index + 1) + "/" + frames.length);
+      console.log("Frame " + (index + 1) + "/" + frames.length);
       context.clearRect(0, 0, canvas.width, canvas.height);
 
       var x = (canvas.width - img.width) / 2;
@@ -135,7 +134,7 @@ function createGIFfromFrames(frames) {
       loadedFrames++;
 
       if (loadedFrames === frames.length) {
-        console.log("All frames loaded. Rendering the GIF...");
+        console.log("Rendering GIF");
         gif.render();
       }
     };
@@ -154,7 +153,6 @@ function displayGeneratedGIF(dataURL) {
   link.appendChild(imgElement);
 
   var exportedVideosContainer = document.querySelector(".exported_videos");
-  if (exportedVideosContainer) {
     if (exportedVideosContainer.firstChild) {
       exportedVideosContainer.insertBefore(
         link,
@@ -163,8 +161,5 @@ function displayGeneratedGIF(dataURL) {
     } else {
       exportedVideosContainer.appendChild(link);
     }
-  } else {
-    console.error("Exported videos container not found.");
-  }
 }
 
